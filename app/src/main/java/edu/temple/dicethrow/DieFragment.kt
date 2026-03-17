@@ -37,10 +37,7 @@ class DieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        throwDie()
-        view.setOnClickListener{
-            throwDie()
-        }
+        throwDie() //intial die throw get rid of onclicklistener
     }
 
     fun throwDie() {
