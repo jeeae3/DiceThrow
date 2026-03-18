@@ -13,27 +13,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        //remove fragment container name from activity_main
-        //adding by code
-        if (supportFragmentManager.findFragmentById(R.id.fragmentContainerView)==null){
-            //val dieFragment = DieFragment.newInstance(20)
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragmentContainerView, DieFragment.newInstance(20))
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.fragmentContainerView,
+                    DieFragment().apply {
+                        arguments = Bundle().apply {
+                            putInt(DIESIDE, 6)
+                        }
+                    })
                 .commit()
         }
-
-
-
-
-
-
-        findViewById<Button>(R.id.rollDiceButton).setOnClickListener {
-            (supportFragmentManager
-                .findFragmentById(R.id.fragmentContainerView) as DieFragment).run{
-                    (this as DieFragment).throwDie()
-                }
+        val rollButton = findViewById<Button>(R.id.rollDiceButton)
+        rollButton.setOnClickListener {
+            val dieFragment = supportFragmentManager.findFragmentById(
+                R.id.fragmentContainerView
+            ) as? DieFragment
+            dieFragment?.throwDie()
         }
     }
-
 }
